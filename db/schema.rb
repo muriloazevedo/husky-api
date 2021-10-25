@@ -20,7 +20,7 @@ ActiveRecord::Schema.define(version: 2021_10_25_151126) do
     t.string "number", null: false
     t.text "company", null: false
     t.text "billing", null: false
-    t.money "total_amount", scale: 2, null: false
+    t.integer "total_amount", null: false
     t.string "email_list", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
