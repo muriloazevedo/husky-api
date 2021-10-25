@@ -4,10 +4,7 @@ module Api
 
       def index
         invoices = Invoice.all
-        invoices = invoices.map do |invoice|
-          { id: invoice.id, total_amount: invoice.total_amount }
-        end
-        render json: { results: invoices }.to_json, status: :ok
+        render json: { results: InvoiceSerializer.new(invoices).as_json }, status: :ok
       end
 
       def create
