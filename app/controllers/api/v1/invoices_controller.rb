@@ -3,10 +3,7 @@ module Api
     class InvoicesController < ApplicationController
 
       def index
-        invoices = Invoice.all
-        invoices = invoices.by_due_date(params[:due_date]) if params[:due_date].present?
-        invoices = invoices.by_created_at(params[:created_at]) if params[:created_at].present?
-        invoices = invoices.where(number: params[:number]) if params[:number].present?
+        invoices = Invoices::Index.new(params.permit!.to_h).call
         render json: { results: InvoiceSerializer.new(invoices).as_json }, status: :ok
       end
 
