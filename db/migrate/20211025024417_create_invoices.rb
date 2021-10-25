@@ -1,6 +1,6 @@
-class CreateInvoicesTable < ActiveRecord::Migration[6.1]
+class CreateInvoices < ActiveRecord::Migration[6.1]
   def change
-    create_table :invoice_tables do |t|
+    create_table :invoices do |t|
       t.string :number, null: false
       t.text :company, null: false
       t.text :billing, null: false
