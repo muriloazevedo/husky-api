@@ -1,6 +1,6 @@
 class CreateInvoices < ActiveRecord::Migration[6.1]
   def change
-    create_table :invoices do |t|
+    create_table :invoices, id: :uuid do |t|
       t.string :number, null: false
       t.text :company, null: false
       t.text :billing, null: false
