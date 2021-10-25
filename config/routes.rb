@@ -1,8 +1,7 @@
 Rails.application.routes.draw do
-    
-  namespace :api, defaults: { format: :json } do
+  scope module: 'api', format: 'json' do
     namespace :v1 do
-      resources :invoices, only: [:index]
+      resources :invoices, only: %i[create show]
     end
   end
 end

@@ -9,6 +9,19 @@ module Api
         end
         render json: { results: invoices }.to_json, status: :ok
       end
+
+      def create
+        service = Invoices::Create.new(invoice_params)
+        service.call
+
+        render json: service, status: :created
+      end
+
+      private
+
+      def invoice_params
+        params.require(:invoice).permit(:total_amount, :company, :billing, :email_list)
+      end
     end
   end
 end

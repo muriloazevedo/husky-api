@@ -10,7 +10,7 @@ module Invoices
     INVOICE_NUMBER_DIGITS = 100_000
 
     def initialize(parameters)
-      create_contract(parameters)
+      create_contract(parameters.to_h)
     end
 
     def call
@@ -36,7 +36,11 @@ module Invoices
     private
 
     def create_invoice_number!
-      invoice.number = SecureRandom.random_number(INVOICE_NUMBER_DIGITS).to_s.rjust(5, '0')
+      while
+        invoice.number = SecureRandom.random_number(INVOICE_NUMBER_DIGITS).to_s.rjust(5, '0')
+
+        break unless Invoice.exists?(number: invoice.number)
+      end
     end
   end
 end
