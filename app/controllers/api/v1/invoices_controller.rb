@@ -24,7 +24,7 @@ module Api
         render json: service, status: :ok
       end
 
-      def send
+      def send_invoice
         service = Invoices::Send.new({ id: params[:id] })
         service.call
 

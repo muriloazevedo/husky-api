@@ -22,6 +22,7 @@ module Invoices
     def process
       create_invoice_number!
       ActiveRecord::Base.transaction do
+        invoice.due_date = Time.current + 2.days 
         invoice.save!
       end
     end

@@ -1,4 +1,4 @@
-   <span class="preheader">This is an invoice for your purchase on {{ purchase_date }}. Please submit payment by {{ due_date }}</span>
+   <span class="preheader">This is an invoice for your purchase on <%= l @invoice.created_at, format: :short %>. Please submit payment by <%= l @invoice.due_date, format: :long%></span>
     <table class="email-wrapper" width="100%" cellpadding="0" cellspacing="0" role="presentation">
       <tr>
         <td align="center">
@@ -34,7 +34,7 @@
                                 <tr>
                                   <td class="attributes_item">
                                     <span class="f-fallback">
-              <strong>Due By:</strong> {{due_date}}
+              <strong>Due By:</strong> <%= l @invoice.due_date, format: :long%>
             </span>
                                   </td>
                                 </tr>
@@ -78,12 +78,11 @@
                                     <p class="f-fallback">Amount</p>
                                   </th>
                                 </tr>
-                                {{#each invoice_details}}
+                                
                                 <tr>
-                                  <td width="80%" class="purchase_item"><span class="f-fallback">{{description}}</span></td>
+                                  <td width="80%" class="purchase_item"><span class="f-fallback"><%= @invoice.billing %></span></td>
                                   <td class="align-right" width="20%" class="purchase_item"><span class="f-fallback"><%= @invoice.amount%></span></td>
                                 </tr>
-                                {{/each}}
                                 <tr>
                                   <td width="80%" class="purchase_footer" valign="middle">
                                     <p class="f-fallback purchase_total purchase_total--label">Total</p>
