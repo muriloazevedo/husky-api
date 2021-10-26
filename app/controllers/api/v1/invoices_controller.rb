@@ -1,6 +1,7 @@
 module Api
   module V1
     class InvoicesController < ApplicationController
+      before_action :authenticate_request!
 
       def index
         invoices = Invoices::Index.new(params.permit!.to_h).call
