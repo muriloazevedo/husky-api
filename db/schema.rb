@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 2021_10_25_221054) do
     t.index ["number"], name: "index_invoices_on_number", unique: true
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", null: false
     t.string "confirmation_token"
     t.datetime "created_at", precision: 6, null: false
