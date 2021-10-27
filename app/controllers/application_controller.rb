@@ -19,8 +19,24 @@ class ApplicationController < ActionController::API
     render json: {}, status: :bad_request
   end
 
+  def cors_preflight_check
+    cors_set_access_control_headers
+    render json: {}
+  end
+
   private
-  # Validates the token and user and sets the @current_user scope
+
+  def cors_set_access_control_headers
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    response.headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, PATCH, DELETE, OPTIONS'
+    response.headers['Access-Control-Allow-Headers'] = 'Origin, Content-Type, Accept, Authorization, Token, ' \
+      'Auth-Token, Email, X-User-Token, X-User-Email, x-xsrf-token'
+    response.headers['Access-Control-Max-Age'] = '1728000'
+    response.headers['Access-Control-Allow-Credentials'] = true
+    response.headers['Access-Control-Expose-Headers'] = 'Origin, Content-Type, Accept, Authorization, Token, ' \
+    'Auth-Token, Email, X-User-Token, X-User-Email, x-xsrf-token, Access-Token, Uid'
+  end
+
   def authenticate_request!
     if !payload || !JsonWebToken.valid_payload(payload.first)
       return invalid_authentication
