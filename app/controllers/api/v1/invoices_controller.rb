@@ -32,7 +32,7 @@ module Api
       private
 
       def invoice_params
-        params.require(:invoice).permit(:total_amount, :company, :billing, :email_list)
+        params.require(:invoice).permit(:total_amount, :company, :billing, :email_list, :due_date)
       end
     end
   end
