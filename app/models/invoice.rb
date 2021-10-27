@@ -16,7 +16,7 @@ class Invoice < ApplicationRecord
   }
 
   scope :by_number, lambda { |number|
-    where(number: number[:number]) if number[:number]
+    where(number: number) if number
   }
 
   def amount
