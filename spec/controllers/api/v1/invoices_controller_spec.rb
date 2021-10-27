@@ -1,12 +1,19 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::InvoicesController, type: :request do
-  describe 'GET /v1/invoices/:id' do
+RSpec.describe Api::V1::InvoicesController, type: :controller do
+  describe 'GET /v1/invoices' do
     let(:invoice) { create(:invoice) }
+    let(:user) { create(:user) }
+    
+    before do
+      auth_token = Auth::GenerateAuthToken.new(user).call
+      headers = { Authorization: auth_token }
+      @request.headers.merge! headers
+    end
 
     describe '#show' do
       before do
-        get "/v1/invoices/#{invoice.id}", as: :json
+        get :show, params: { id: invoice.id }
       end
 
       context 'on success' do  
@@ -30,7 +37,7 @@ RSpec.describe Api::V1::InvoicesController, type: :request do
       context 'on success' do
         let!(:invoices) { [create(:invoice), create(:invoice_murilo)] }
         before do
-          get '/v1/invoices', as: :json
+          get :index, as: :json
         end
 
         it 'returns 200' do
@@ -47,7 +54,7 @@ RSpec.describe Api::V1::InvoicesController, type: :request do
 
     describe '#create' do
       before do
-        post '/v1/invoices', params: params, as: :json
+        post :create, params: params, as: :json
       end
 
       context 'on success' do
