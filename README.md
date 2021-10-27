@@ -1,5 +1,10 @@
 # README
 
+## Como Rodar
+Sugiro que rode o projeto na porta `4000`, pelo fato do front rodar na porta `3000`:
+
+`rails s - p 4000`
+
 ## Arquitetura
 
 Dentro do framework Rails, optei por usar uma arquitetura de **Service Objects**, onde a regra de negócio
