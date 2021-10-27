@@ -21,7 +21,7 @@ module Invoices
       invoices = Invoice.all
       invoices = invoices.by_due_date(params[:due_date])
       invoices = invoices.by_created_at(params[:created_at])
-      invoices = invoices.where(number: params[:number])
+      invoices = invoices.by_number(params[:number])
 
       invoices
     end

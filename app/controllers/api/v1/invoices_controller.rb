@@ -1,6 +1,7 @@
 module Api
   module V1
     class InvoicesController < ApplicationController
+      before_action :authenticate_request!
 
       def index
         invoices = Invoices::Index.new(params.permit!.to_h).call
@@ -31,7 +32,7 @@ module Api
       private
 
       def invoice_params
-        params.require(:invoice).permit(:total_amount, :company, :billing, :email_list)
+        params.require(:invoice).permit(:total_amount, :company, :billing, :email_list, :due_date)
       end
     end
   end
