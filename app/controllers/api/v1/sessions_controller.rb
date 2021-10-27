@@ -8,7 +8,7 @@ module Api
         if decoded_token && JsonWebToken.valid_payload(decoded_token.first)
           user = User.find_by(login_token: login_token)
           if user
-            render json: { auth_token: user.generate_auth_token }
+            render json: { auth_token: Auth::GenerateAuthToken.new(user).call }
           else
             render json: { error: 'Invalid Request' }, status: :unauthorized
           end

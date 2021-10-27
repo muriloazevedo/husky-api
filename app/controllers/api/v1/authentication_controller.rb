@@ -4,9 +4,11 @@ module Api
       def create
         user = User.find_or_create_by!(email: params[:user][:email])
 
-        user.send_magic_link
+        token = Auth::SendMagicLink.new(user).call
  
-        head :ok
+        return head :ok if token
+
+        head :bad_request
       end
     end
   end

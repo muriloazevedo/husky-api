@@ -19,14 +19,6 @@ module Invoices
       process
     end
 
-    def process
-      create_invoice_number!
-      ActiveRecord::Base.transaction do
-        invoice.due_date = Time.current + 2.days
-        invoice.save!
-      end
-    end
-
     def invoice
       @invoice ||= Invoice.new(contract.values)
     end
@@ -35,6 +27,14 @@ module Invoices
     alias serializable_object invoice
 
     private
+
+    def process
+      create_invoice_number!
+      ActiveRecord::Base.transaction do
+        invoice.due_date = Time.current + 2.days
+        invoice.save!
+      end
+    end
 
     def create_invoice_number!
       while
